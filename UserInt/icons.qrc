@@ -1,0 +1,31 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>Icons/user-admin-gear.png</file>
+    <file>Icons/user-group-8.png</file>
+    <file>Icons/back.png</file>
+    <file>Icons/next-2.png</file>
+    <file>Icons/clipboard.png</file>
+    <file>Icons/refresh.png</file>
+    <file>Icons/001-more.png</file>
+    <file>Icons/001-search.png</file>
+    <file>Icons/002-placeholders.png</file>
+    <file>Icons/002-save.png</file>
+    <file>Icons/003-error.png</file>
+    <file>Icons/003-layers.png</file>
+    <file>Icons/004-file.png</file>
+    <file>Icons/004-placeholder-1.png</file>
+    <file>Icons/005-placeholder.png</file>
+    <file>Icons/005-writer.png</file>
+    <file>Icons/006-wall-calendar.png</file>
+    <file>Icons/007-fishing.png</file>
+    <file>Icons/008-chains.png</file>
+    <file>Icons/boat.png</file>
+    <file>Icons/fish.png</file>
+    <file>Icons/gender.png</file>
+    <file>Icons/layers.png</file>
+    <file>Icons/plus.png</file>
+    <file>Icons/ruler.png</file>
+    <file>Icons/stats-2.png</file>
+    <file>Icons/stats.png</file>
+  </qresource>
+</RCC>

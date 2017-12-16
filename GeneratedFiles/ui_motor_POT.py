@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file '/Users/chernomirdinmacuvele/Documents/workspace/PscArt2.0.X/UserInt/ui_motor_POT.ui'
+#
+# Created by: PyQt5 UI code generator 5.8.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(345, 247)
+        self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.TabMotor_LEModelo = QtWidgets.QLineEdit(Form)
+        self.TabMotor_LEModelo.setMaxLength(15)
+        self.TabMotor_LEModelo.setObjectName("TabMotor_LEModelo")
+        self.gridLayout_2.addWidget(self.TabMotor_LEModelo, 2, 3, 1, 1)
+        self.label_5 = QtWidgets.QLabel(Form)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 3)
+        self.label_6 = QtWidgets.QLabel(Form)
+        self.label_6.setObjectName("label_6")
+        self.gridLayout_2.addWidget(self.label_6, 2, 0, 1, 3)
+        self.TabMotor_LEN_Sequencial = QtWidgets.QLineEdit(Form)
+        self.TabMotor_LEN_Sequencial.setMaxLength(5)
+        self.TabMotor_LEN_Sequencial.setObjectName("TabMotor_LEN_Sequencial")
+        self.gridLayout_2.addWidget(self.TabMotor_LEN_Sequencial, 0, 3, 1, 1)
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setObjectName("label")
+        self.gridLayout_2.addWidget(self.label, 3, 0, 1, 3)
+        self.label_7 = QtWidgets.QLabel(Form)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_2.addWidget(self.label_7, 4, 0, 1, 3)
+        self.TabMotor_LEMarca = QtWidgets.QLineEdit(Form)
+        self.TabMotor_LEMarca.setMaxLength(15)
+        self.TabMotor_LEMarca.setObjectName("TabMotor_LEMarca")
+        self.gridLayout_2.addWidget(self.TabMotor_LEMarca, 1, 3, 1, 1)
+        self.label_4 = QtWidgets.QLabel(Form)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_2.addWidget(self.label_4, 0, 0, 1, 3)
+        self.TabMotor_LEPotencia = QtWidgets.QLineEdit(Form)
+        self.TabMotor_LEPotencia.setText("")
+        self.TabMotor_LEPotencia.setMaxLength(15)
+        self.TabMotor_LEPotencia.setObjectName("TabMotor_LEPotencia")
+        self.gridLayout_2.addWidget(self.TabMotor_LEPotencia, 3, 3, 1, 1)
+        self.TabMotor_LETipo = QtWidgets.QLineEdit(Form)
+        self.TabMotor_LETipo.setMaxLength(19998)
+        self.TabMotor_LETipo.setObjectName("TabMotor_LETipo")
+        self.gridLayout_2.addWidget(self.TabMotor_LETipo, 5, 3, 1, 1)
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 5, 0, 1, 3)
+        self.TabMotor_DEAno = QtWidgets.QDateEdit(Form)
+        self.TabMotor_DEAno.setObjectName("TabMotor_DEAno")
+        self.gridLayout_2.addWidget(self.TabMotor_DEAno, 4, 3, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_2, 0, 0, 1, 1)
+        self.splitter = QtWidgets.QSplitter(Form)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName("splitter")
+        self.PBGuardar = QtWidgets.QPushButton(self.splitter)
+        self.PBGuardar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/002-save.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.PBGuardar.setIcon(icon)
+        self.PBGuardar.setObjectName("PBGuardar")
+        self.PBCancelar = QtWidgets.QPushButton(self.splitter)
+        self.PBCancelar.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/003-error.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.PBCancelar.setIcon(icon1)
+        self.PBCancelar.setObjectName("PBCancelar")
+        self.gridLayout.addWidget(self.splitter, 1, 0, 1, 1)
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Detalhes Motor"))
+        self.TabMotor_LEModelo.setPlaceholderText(_translate("Form", "Ex:F3000BETX"))
+        self.label_5.setText(_translate("Form", "Marca"))
+        self.label_6.setText(_translate("Form", "Modelo"))
+        self.TabMotor_LEN_Sequencial.setPlaceholderText(_translate("Form", "Ex:AAAAA"))
+        self.label.setText(_translate("Form", "potencia"))
+        self.label_7.setText(_translate("Form", "Ano"))
+        self.TabMotor_LEMarca.setPlaceholderText(_translate("Form", "Ex:YAMAHA"))
+        self.label_4.setText(_translate("Form", "Codigo"))
+        self.TabMotor_LEPotencia.setPlaceholderText(_translate("Form", "Ex:498 Cm3"))
+        self.TabMotor_LETipo.setPlaceholderText(_translate("Form", "Ex:4 Tempos Cilindrada 498 Cm3"))
+        self.label_2.setText(_translate("Form", "Tipo"))
+        self.TabMotor_DEAno.setDisplayFormat(_translate("Form", "dd/MM/yyyy"))
+
+import icons_rc

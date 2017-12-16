@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>844</width>
+    <height>576</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>1260</width>
+    <height>1280</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Pescar 2.0</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">.QPushButton {
+border-radius: 12px;
+border-style: solid;
+border-width: 1px;
+border-color: black
+}
+.QPushButton:pressed { background-color: orange; 
+border-radius: 12px;
+border-style: solid;
+border-width: 1px;
+border-color: black
+}
+
+
+</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>844</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="menuDados">
+    <property name="title">
+     <string>Dados</string>
+    </property>
+    <widget class="QMenu" name="menuExportar_Informacao">
+     <property name="title">
+      <string>Exportar Informacao</string>
+     </property>
+     <addaction name="actionSaidas"/>
+     <addaction name="actionArtes"/>
+     <addaction name="actionUndiades"/>
+     <addaction name="actionLances"/>
+     <addaction name="actionCategorias"/>
+     <addaction name="actionEspecies_2"/>
+     <addaction name="actionComprimentos"/>
+     <addaction name="actionComercializacao"/>
+    </widget>
+    <addaction name="actionFicha_de_Recolha_de_Dados"/>
+    <addaction name="actionAdicionar_Composicao_Especifica"/>
+    <addaction name="separator"/>
+    <addaction name="actionTabelas_de_Referencia"/>
+    <addaction name="actionTabelas_Relacionais"/>
+    <addaction name="separator"/>
+    <addaction name="menuExportar_Informacao"/>
+    <addaction name="actionImportar_Informacao"/>
+    <addaction name="actionReparar_Compactar_Base_de_Dados"/>
+    <addaction name="actionBackup_da_Base_de_Dados"/>
+    <addaction name="separator"/>
+    <addaction name="actionSair"/>
+   </widget>
+   <widget class="QMenu" name="menuProcessar">
+    <property name="title">
+     <string>Processar</string>
+    </property>
+    <addaction name="actionValidadr_Informacao"/>
+    <addaction name="separator"/>
+    <addaction name="actionCalculo_das_Estimativas"/>
+   </widget>
+   <widget class="QMenu" name="menuRelatorios">
+    <property name="title">
+     <string>Relatorios</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuGraficos">
+    <property name="title">
+     <string>Graficos</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuConsultas">
+    <property name="title">
+     <string>Consultas</string>
+    </property>
+    <addaction name="actionSaidas_Por_Centro_de_Pesca"/>
+   </widget>
+   <widget class="QMenu" name="menuConfiguracao">
+    <property name="title">
+     <string>Configuracao</string>
+    </property>
+    <widget class="QMenu" name="menuRegras">
+     <property name="title">
+      <string>Regras</string>
+     </property>
+     <addaction name="actionRegistar"/>
+     <addaction name="actionEditar"/>
+    </widget>
+    <addaction name="menuRegras"/>
+   </widget>
+   <addaction name="menuDados"/>
+   <addaction name="menuProcessar"/>
+   <addaction name="menuRelatorios"/>
+   <addaction name="menuGraficos"/>
+   <addaction name="menuConsultas"/>
+   <addaction name="menuConfiguracao"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAdicionar_Composicao_Especifica">
+   <property name="text">
+    <string>Adicionar Composicao Especifica</string>
+   </property>
+  </action>
+  <action name="actionImportar_Informacao">
+   <property name="text">
+    <string>Importar Informacao</string>
+   </property>
+  </action>
+  <action name="actionReparar_Compactar_Base_de_Dados">
+   <property name="text">
+    <string>Reparar/Compactar Base de Dados</string>
+   </property>
+  </action>
+  <action name="actionBackup_da_Base_de_Dados">
+   <property name="text">
+    <string>Backup da Base de Dados</string>
+   </property>
+  </action>
+  <action name="actionSair">
+   <property name="text">
+    <string>Sair</string>
+   </property>
+  </action>
+  <action name="actionProvincias">
+   <property name="text">
+    <string>Provincias</string>
+   </property>
+  </action>
+  <action name="actionDistritos">
+   <property name="text">
+    <string>Distritos</string>
+   </property>
+  </action>
+  <action name="actionEstratos">
+   <property name="text">
+    <string>Estratos</string>
+   </property>
+  </action>
+  <action name="actioncentros_de_Pesca">
+   <property name="text">
+    <string>Centros de Pesca</string>
+   </property>
+  </action>
+  <action name="actionTipos_de_Centros">
+   <property name="text">
+    <string>Tipos de Centros</string>
+   </property>
+  </action>
+  <action name="actionLocais_de_Pesca">
+   <property name="text">
+    <string>Locais de Pesca</string>
+   </property>
+  </action>
+  <action name="actionCategorias_da_Captura">
+   <property name="text">
+    <string>Categorias da Captura</string>
+   </property>
+  </action>
+  <action name="actionEspecies">
+   <property name="text">
+    <string>Especies</string>
+   </property>
+  </action>
+  <action name="actionHabitat">
+   <property name="text">
+    <string>Habitat</string>
+   </property>
+  </action>
+  <action name="actionGrupos_de_Gestao">
+   <property name="text">
+    <string>Grupos de Gestao</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Unidade_de_Pesca">
+   <property name="text">
+    <string>Tipo de Unidade de Pesca</string>
+   </property>
+  </action>
+  <action name="actionArtes_de_Pesca">
+   <property name="text">
+    <string>Artes de Pesca</string>
+   </property>
+  </action>
+  <action name="actionDias_da_Semana">
+   <property name="text">
+    <string>Dias da Semana</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Dia">
+   <property name="text">
+    <string>Tipo de Dia</string>
+   </property>
+  </action>
+  <action name="actionPeriodos_do_Dia">
+   <property name="text">
+    <string>Periodos do Dia</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Periodo">
+   <property name="text">
+    <string>Tipo de Periodo</string>
+   </property>
+  </action>
+  <action name="actionUnidades_de_Comercializacao">
+   <property name="text">
+    <string>Unidades de Comercializacao</string>
+   </property>
+  </action>
+  <action name="actionFactores_Ambientais">
+   <property name="text">
+    <string>Factores  Ambientais</string>
+   </property>
+  </action>
+  <action name="actionFacores_Socio_Economicos">
+   <property name="text">
+    <string>Facores Socio-Economicos</string>
+   </property>
+  </action>
+  <action name="actionDirecao_do_Vento">
+   <property name="text">
+    <string>Direcao do Vento</string>
+   </property>
+  </action>
+  <action name="actionForca_do_Vento">
+   <property name="text">
+    <string>Forca do Vento</string>
+   </property>
+  </action>
+  <action name="actionEstado_da_Mate">
+   <property name="text">
+    <string>Estado da Mare</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Mare">
+   <property name="text">
+    <string>Tipo de Mare</string>
+   </property>
+  </action>
+  <action name="actionNebulosidade">
+   <property name="text">
+    <string>Nebulosidade</string>
+   </property>
+  </action>
+  <action name="actionFases_da_Lua">
+   <property name="text">
+    <string>Fases da Lua</string>
+   </property>
+  </action>
+  <action name="actionRegistadores">
+   <property name="text">
+    <string>Registadores</string>
+   </property>
+  </action>
+  <action name="actionSexo">
+   <property name="text">
+    <string>Sexo</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Pesca">
+   <property name="text">
+    <string>Tipo de Pesca</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Grupo_da_Especie">
+   <property name="text">
+    <string>Tipo de Grupo da Especie</string>
+   </property>
+  </action>
+  <action name="actionGrupo_da_Especie">
+   <property name="text">
+    <string>Grupo da Especie</string>
+   </property>
+  </action>
+  <action name="actionSaidas">
+   <property name="text">
+    <string>Saidas</string>
+   </property>
+  </action>
+  <action name="actionArtes">
+   <property name="text">
+    <string>Artes</string>
+   </property>
+  </action>
+  <action name="actionUndiades">
+   <property name="text">
+    <string>Undiades </string>
+   </property>
+  </action>
+  <action name="actionLances">
+   <property name="text">
+    <string>Lances</string>
+   </property>
+  </action>
+  <action name="actionCategorias">
+   <property name="text">
+    <string>Categorias</string>
+   </property>
+  </action>
+  <action name="actionEspecies_2">
+   <property name="text">
+    <string>Especies</string>
+   </property>
+  </action>
+  <action name="actionComprimentos">
+   <property name="text">
+    <string>Comprimentos</string>
+   </property>
+  </action>
+  <action name="actionComercializacao">
+   <property name="text">
+    <string>Comercializacao</string>
+   </property>
+  </action>
+  <action name="actionValidadr_Informacao">
+   <property name="text">
+    <string>Validadr Informacao</string>
+   </property>
+  </action>
+  <action name="actionCalculo_das_Estimativas">
+   <property name="text">
+    <string>Calculo das Estimativas</string>
+   </property>
+  </action>
+  <action name="actionSaidas_Por_Centro_de_Pesca">
+   <property name="text">
+    <string>Saidas Por Centro de Pesca</string>
+   </property>
+  </action>
+  <action name="actiontTipoBarco">
+   <property name="text">
+    <string>Tipo de Barco</string>
+   </property>
+  </action>
+  <action name="actionUniEsforco">
+   <property name="text">
+    <string>Unitfade de Esforco</string>
+   </property>
+  </action>
+  <action name="actionUniTrabalho">
+   <property name="text">
+    <string>Unidade de Trabalho</string>
+   </property>
+  </action>
+  <action name="actionCentros_to_Tipos_de_Centros">
+   <property name="text">
+    <string>Centros to Tipos de Centros</string>
+   </property>
+  </action>
+  <action name="actionCentros_to_Estratos">
+   <property name="text">
+    <string>Centros to Estratos</string>
+   </property>
+  </action>
+  <action name="actionEspecies_to_Categorias">
+   <property name="text">
+    <string>Especies to Categorias</string>
+   </property>
+  </action>
+  <action name="actionEspecies_to_Grupo_de_Especies">
+   <property name="text">
+    <string>Especies to Grupo de Especies</string>
+   </property>
+  </action>
+  <action name="actionEspeceis_to_Habitat">
+   <property name="text">
+    <string>Especeis to Habitat</string>
+   </property>
+  </action>
+  <action name="actionEspecies_to_Distritos">
+   <property name="text">
+    <string>Especies to Distritos</string>
+   </property>
+  </action>
+  <action name="actionEspecies_to_Nome_Local_to_Centros">
+   <property name="text">
+    <string>Especies to Nome Local to Centros</string>
+   </property>
+  </action>
+  <action name="actionTabela_De_Codificadores">
+   <property name="text">
+    <string>Tabela De Codificadores</string>
+   </property>
+  </action>
+  <action name="actionArtes_de_Pesca_2">
+   <property name="text">
+    <string>Artes de Pesca</string>
+   </property>
+  </action>
+  <action name="actionCodificadores">
+   <property name="text">
+    <string>Codificadores</string>
+   </property>
+  </action>
+  <action name="actionEspecies_3">
+   <property name="text">
+    <string>Especies</string>
+   </property>
+  </action>
+  <action name="actionNivel">
+   <property name="text">
+    <string>Nivel</string>
+   </property>
+  </action>
+  <action name="actionTipo_de_Local">
+   <property name="text">
+    <string>Tipo de Local</string>
+   </property>
+  </action>
+  <action name="actionDias_da_Semana_2">
+   <property name="text">
+    <string>Dias da Semana</string>
+   </property>
+  </action>
+  <action name="actionGeometric">
+   <property name="text">
+    <string>Geometric</string>
+   </property>
+  </action>
+  <action name="actionSaidas_2">
+   <property name="text">
+    <string>Saidas</string>
+   </property>
+  </action>
+  <action name="actionSaidas_Observacoes">
+   <property name="text">
+    <string>Saidas Observacoes</string>
+   </property>
+  </action>
+  <action name="actionArtes_Amostradas">
+   <property name="text">
+    <string>Artes Amostradas</string>
+   </property>
+  </action>
+  <action name="actionUnidade_de_Pesca">
+   <property name="text">
+    <string>Unidade de Pesca</string>
+   </property>
+  </action>
+  <action name="actionViagem_de_Pesca">
+   <property name="text">
+    <string>Viagem de Pesca</string>
+   </property>
+  </action>
+  <action name="actionLances_de_pesca">
+   <property name="text">
+    <string>Lances de pesca</string>
+   </property>
+  </action>
+  <action name="actionCategoria_Comercial">
+   <property name="text">
+    <string>Categoria Comercial</string>
+   </property>
+  </action>
+  <action name="actionAmostra_de_Especie">
+   <property name="text">
+    <string>Amostra de Especie</string>
+   </property>
+  </action>
+  <action name="actionAmostra_de_Sexo">
+   <property name="text">
+    <string>Amostra de Sexo</string>
+   </property>
+  </action>
+  <action name="actionFicha_de_Recolha_de_Dados">
+   <property name="text">
+    <string>Ficha de Recolha de Dados</string>
+   </property>
+  </action>
+  <action name="actionTabelas_de_Referencia">
+   <property name="text">
+    <string>Tabelas de Referencia</string>
+   </property>
+  </action>
+  <action name="actionTabelas_de_Referencia_2">
+   <property name="text">
+    <string>Tabelas de Referencia</string>
+   </property>
+  </action>
+  <action name="actionTabelas_Relacionais">
+   <property name="text">
+    <string>Tabelas Relacionais</string>
+   </property>
+  </action>
+  <action name="actionAtribuir_Regras">
+   <property name="text">
+    <string>Atribuir Regras</string>
+   </property>
+  </action>
+  <action name="actionRegistar">
+   <property name="text">
+    <string>Registar</string>
+   </property>
+  </action>
+  <action name="actionEditar">
+   <property name="text">
+    <string>Editar </string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

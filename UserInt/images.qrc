@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>Background/Almora.jpg</file>
+    <file>Background/8b0f2771dfc0a75f80b3ca1e660dac96.jpg</file>
+    <file>Background/918640-white-wallpaper.jpg</file>
+    <file>Background/Mozambique_map_cities.png</file>
+    <file>Background/white-background-images-for-website-white-wallpapers-hd-2014-onlybackground-image.jpg</file>
+  </qresource>
+</RCC>
