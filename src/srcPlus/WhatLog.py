@@ -6,6 +6,10 @@ Created on 07/11/2017
 from platform import platform, machine, version, uname, system, processor, node
 import os
 from datetime import datetime
+import File_config
+import shelve
+from PyQt5.Qt import QFileDialog
+import QT_msg
 '''
 Sera um modulo com Diferentes regras a serem implementadas
 '''
@@ -25,12 +29,12 @@ dictWho ={
             'time': None,
             'machine': dictMachineInfo
             }
-#===============================================================================
-# cwd = os.getcwd() #traz o current working dir
-# myFile='/log.txt'
-#===============================================================================
-myCWD = '/Users/chernomirdinmacuvele/Documents/workspace/PescArt2.0/src/log.log'
 
+                
+myCWD = File_config.configDict['configFiles']
+
+
+        
 
 def logIN(user=None, tempox=tempo):
     dictWho['user'] = user

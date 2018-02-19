@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/chernomirdinmacuvele/Documents/workspace/PescArt2.0/UserInt/ui_PesquisarSaidas.ui'
+# Form implementation generated from reading ui file 'ui_PesquisarSaidas.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.2
 #
@@ -122,25 +122,28 @@ class Ui_Form(object):
         self.gridLayout_5.addWidget(self.groupBox_3, 1, 2, 1, 1)
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.PBPesquisar = QtWidgets.QPushButton(Form)
+        self.PBOK = QtWidgets.QPushButton(Form)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/001-search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.PBPesquisar.setIcon(icon)
+        icon.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/clipboard.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.PBOK.setIcon(icon)
+        self.PBOK.setObjectName("PBOK")
+        self.gridLayout_4.addWidget(self.PBOK, 0, 2, 1, 1)
+        self.PBPesquisar = QtWidgets.QPushButton(Form)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/001-search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.PBPesquisar.setIcon(icon1)
         self.PBPesquisar.setIconSize(QtCore.QSize(20, 20))
         self.PBPesquisar.setObjectName("PBPesquisar")
-        self.gridLayout_4.addWidget(self.PBPesquisar, 0, 2, 1, 1)
-        self.PBOK = QtWidgets.QPushButton(Form)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/clipboard.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.PBOK.setIcon(icon1)
-        self.PBOK.setObjectName("PBOK")
-        self.gridLayout_4.addWidget(self.PBOK, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.PBPesquisar, 0, 3, 1, 1)
         self.PBCancelar = QtWidgets.QPushButton(Form)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/newPrefix/Icons/003-error.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.PBCancelar.setIcon(icon2)
         self.PBCancelar.setObjectName("PBCancelar")
-        self.gridLayout_4.addWidget(self.PBCancelar, 0, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.PBCancelar, 0, 1, 1, 1)
+        self.PBOptions = QtWidgets.QPushButton(Form)
+        self.PBOptions.setObjectName("PBOptions")
+        self.gridLayout_4.addWidget(self.PBOptions, 0, 0, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_4, 2, 1, 1, 2)
 
         self.retranslateUi(Form)
@@ -163,8 +166,19 @@ class Ui_Form(object):
         self.label_6.setText(_translate("Form", "Dia da Semana:"))
         self.label_5.setText(_translate("Form", "Registador:"))
         self.label_7.setText(_translate("Form", "Actividade Pesqueira:"))
-        self.PBPesquisar.setText(_translate("Form", "Pesquisar"))
         self.PBOK.setText(_translate("Form", "Ok!"))
+        self.PBPesquisar.setText(_translate("Form", "Pesquisar"))
         self.PBCancelar.setText(_translate("Form", "Cancelar"))
+        self.PBOptions.setText(_translate("Form", "..."))
 
 import icons_rc
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+

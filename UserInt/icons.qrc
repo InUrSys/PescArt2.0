@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="newPrefix">
     <file>Icons/user-admin-gear.png</file>
+    <file>Icons/001-medical.png</file>
+    <file>Icons/002-view.png</file>
     <file>Icons/user-group-8.png</file>
     <file>Icons/back.png</file>
     <file>Icons/next-2.png</file>

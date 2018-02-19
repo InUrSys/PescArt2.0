@@ -12,7 +12,6 @@ import mixedModel
 import Rules
 import QT_widgetsCustom
 from PyQt5.Qt import QStandardItemModel, QStandardItem
-from dateutil.tz import tzlocal
 
 class CustomFrm(QDialog):
     '''
@@ -21,7 +20,7 @@ class CustomFrm(QDialog):
     -confRules -> para configurar as regras
     '''
 
-    def     configRules(self):
+    def configRules(self):
         '''
         ''' 
         frmName = self.objectName()
@@ -42,14 +41,14 @@ class CustomFrm(QDialog):
                                     DATE(saida.data_amostragem), saida.id_centro, centro.nome, saida.id_registrador, registador.nome
                                     from t_saidas as saida
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where saida.id = {id};''',
                     
                     "frmFactores": '''select 
                                     DATE(saida.data_amostragem), saida.id_centro, centro.nome, saida.id_registrador, registador.nome
                                     from t_saidas as saida
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where saida.id = {id};''',
                                     
                     "frmViagemPesca": """select 
@@ -60,7 +59,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where arte.id = {id};""",
                     
                     "frmLancesPesca": """select 
@@ -73,7 +72,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where viagem.id = {id}""" ,
         
                     "frmCatComercialAmostra": """select 
@@ -88,7 +87,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where lance.id = {id}""",
         
                     "frmAmostCatComercial": """select 
@@ -106,7 +105,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where catcomercial.id = {id}""" ,
     
                     "frmEspeciesAmostradas": """select 
@@ -127,7 +126,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where amostcat.id = {id}""" ,
         
                     "frmAmostEspeEspecieAmost": """select 
@@ -151,7 +150,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where especifica.id = {id}""" ,
                                                 
                     "frmAmostSexo": """select 
@@ -178,7 +177,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where amostespecifica.id = {id}""" ,
                                     
                     "frmAmostCompSexo": """select 
@@ -208,7 +207,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where compsexo.id = {id}""" ,
         
                     "frmDistComprimento": """select 
@@ -241,7 +240,7 @@ class CustomFrm(QDialog):
                                     inner join ref_geometric as centro2 on arte.id_centro = centro2.id
                                     inner join ref_unidpescatipo as artenome on arte.id_tip_uni_pesca = artenome.id
                                     inner join ref_geometric as centro on saida.id_centro = centro.id
-                                    inner join ref_registador as registador on saida.id_registrador = registador.id
+                                    left join ref_registador as registador on saida.id_registrador = registador.id
                                     where amostsexo.id = {id} """ 
                     }
         if _dictQuey.get(frmName) is not None:
@@ -731,9 +730,9 @@ class CustomFrm(QDialog):
         lstVal = self.getValues()
         try:
             if wdgName is None:
-                rules = self.rules.get('ValidateForm')
+                rules = self.dictRules[self.frmName].get('ValidateForm')
             else:
-                rules = self.rules['ValidateWidget'].get(wdgName)
+                rules = self.dictRules[self.frmName]['ValidateWidget'].get(wdgName)
             _, lstError, lstReac, lstObjNames= Rules.exec_Rule(lstNames=lstName, lstVal=lstVal, dictTrack=self.dictKeepTrack, dictRule=rules)
             bOK= self._afterExecRules(lstReact=lstReac)
         except (TypeError, AttributeError):

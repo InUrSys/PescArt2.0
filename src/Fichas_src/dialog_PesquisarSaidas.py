@@ -24,6 +24,9 @@ class PesquisarSaidas(GenericPesquisas.GenericPesquisas, Ui_Form):
         self.PBPesquisar.clicked.connect(self.buldingTheQuery)
         self.TVSaidas.clicked.connect(self.selectedRow)
         self.PBOK.clicked.connect(self.close)
+        self.PBOptions.clicked.connect(self.toOpenSort)
+        
+    
     
     def setDicts(self):
         self.dictSaidas = { 

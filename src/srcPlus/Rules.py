@@ -6,7 +6,6 @@ Created on 05/10/2017
 from PyQt5.Qt import QLineEdit, QPlainTextEdit, QComboBox
 import QT_msg
 import FuncSQL
-from pprint import pprint
             
 def setNull(wdgt=None, txt='n/a'):
     if isinstance(wdgt, QLineEdit):
@@ -56,6 +55,7 @@ def getRules_Wdgt():
                 '''
     bOK, lstOut = FuncSQL.multLineSelect(scpt=scpt_Indv)
     return  bOK, lstOut
+
 
 def getRules_Frm():
     scpt_Indv = '''

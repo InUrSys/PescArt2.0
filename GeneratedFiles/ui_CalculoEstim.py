@@ -296,7 +296,7 @@ class Ui_FrmCalculoEst(object):
 
     def retranslateUi(self, FrmCalculoEst):
         _translate = QtCore.QCoreApplication.translate
-        FrmCalculoEst.setWindowTitle(_translate("FrmCalculoEst", "Calculo das Estomativas"))
+        FrmCalculoEst.setWindowTitle(_translate("FrmCalculoEst", "Calculo das Estimativas"))
         self.groupBox.setTitle(_translate("FrmCalculoEst", "Periodos "))
         self.groupBox_2.setTitle(_translate("FrmCalculoEst", "Desde:"))
         self.label.setText(_translate("FrmCalculoEst", "Ano:"))
@@ -332,3 +332,13 @@ class Ui_FrmCalculoEst(object):
         self.PBOpcoes.setText(_translate("FrmCalculoEst", "Opcoes"))
 
 from CustomWidgets import MyComboBox
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    FrmCalculoEst = QtWidgets.QWidget()
+    ui = Ui_FrmCalculoEst()
+    ui.setupUi(FrmCalculoEst)
+    FrmCalculoEst.show()
+    sys.exit(app.exec_())
+

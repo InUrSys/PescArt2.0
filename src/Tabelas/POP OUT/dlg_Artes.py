@@ -7,7 +7,7 @@ from ui_artes_POT import Ui_Dialog
 from GenericReferenciasQDialog import GenericReferencias
 
 class dlg_artes(GenericReferencias,Ui_Dialog):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level=None):
         super(dlg_artes, self).__init__(parent=None)
         self.setupUi(self)
         
@@ -17,6 +17,10 @@ class dlg_artes(GenericReferencias,Ui_Dialog):
         self.configCombox()
         self.toEdit()
         self.bOK = (False, None)
+        
+        self.level = level
+        self.justView()
+        
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
         

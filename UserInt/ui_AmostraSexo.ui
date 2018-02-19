@@ -43,7 +43,7 @@
        </property>
        <property name="icon">
         <iconset resource="icons.qrc">
-         <normaloff>:/newPrefix/Icons/plus.png</normaloff>:/newPrefix/Icons/plus.png</iconset>
+         <normaloff>:/newPrefix/Icons/002-save.png</normaloff>:/newPrefix/Icons/002-save.png</iconset>
        </property>
       </widget>
      </item>

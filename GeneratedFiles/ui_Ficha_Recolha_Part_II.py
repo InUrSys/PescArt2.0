@@ -21,14 +21,14 @@ class Ui_Form(object):
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/clipboard.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Form.setWindowIcon(icon)
         self.layoutWidget = QtWidgets.QWidget(Form)
-        self.layoutWidget.setGeometry(QtCore.QRect(450, 10, 551, 291))
+        self.layoutWidget.setGeometry(QtCore.QRect(20, 100, 981, 201))
         self.layoutWidget.setObjectName("layoutWidget")
         self.GLViagens = QtWidgets.QGridLayout(self.layoutWidget)
         self.GLViagens.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
         self.GLViagens.setContentsMargins(0, 0, 0, 0)
         self.GLViagens.setObjectName("GLViagens")
         self.layoutWidget1 = QtWidgets.QWidget(Form)
-        self.layoutWidget1.setGeometry(QtCore.QRect(20, 10, 421, 291))
+        self.layoutWidget1.setGeometry(QtCore.QRect(20, 10, 981, 81))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.GLArtes = QtWidgets.QGridLayout(self.layoutWidget1)
         self.GLArtes.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
@@ -75,11 +75,6 @@ class Ui_Form(object):
         self.line_4.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
-        self.line_5 = QtWidgets.QFrame(Form)
-        self.line_5.setGeometry(QtCore.QRect(437, 7, 16, 300))
-        self.line_5.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_5.setObjectName("line_5")
         self.line_6 = QtWidgets.QFrame(Form)
         self.line_6.setWindowModality(QtCore.Qt.WindowModal)
         self.line_6.setGeometry(QtCore.QRect(10, 0, 999, 16))
@@ -115,4 +110,3 @@ class Ui_Form(object):
         self.LBwhois.setText(_translate("Form", "UserName: Chernomirdin Da Costa Macuvele"))
 
 import icons_rc
-import images_rc

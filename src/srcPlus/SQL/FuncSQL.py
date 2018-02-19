@@ -8,10 +8,9 @@ UPDATE
 DELETE
 @author: chernomirdinmacuvele
 '''
-from PyQt5.Qt import QSqlQuery, QSqlError
+from PyQt5.Qt import QSqlQuery
 import QT_msg as msg
 import FuncMakeScript as script
-import WhatLog
 
 def getLast(tblName=None, val="id", ordBy="id"):
         ''' Funcao para trazer o ultimo elemento ou data de uma 
@@ -24,14 +23,12 @@ def getLast(tblName=None, val="id", ordBy="id"):
         '''
         bOK =False
         scrpt =  "select "+val+" from "+tblName+" order by "+ordBy+" DESC LIMIT 1"
-        WhatLog.whatHappen(info=scrpt.encode(encoding='utf_8'))
         quer = QSqlQuery()
         bOK = quer.exec_(scrpt)
         if not bOK:
             last = -99
             verbTxt = quer.lastError.text()
             msg.error("error "+ str(verbTxt))
-            WhatLog.errorHappen(info=verbTxt)
             return (bOK, last)
         else:
             bNums = quer.first()
@@ -59,7 +56,6 @@ def insertVal( tblName=None, val=None, ordBy=None, lstNames=None, lstVal=None, l
     msgOut = None
     if tblName is None or lstNames is None or lstVal is None:
         msg.error('Nao foi possivel criar o script, porque nao foi passado todos argumentos.')
-        WhatLog.errorHappen(info='Nao foi possivel criar o script, porque nao foi passado todos argumentos.')
         return bOK
     else:
         if lstVal[0] is None or lstVal[0] is '':
@@ -73,15 +69,10 @@ def insertVal( tblName=None, val=None, ordBy=None, lstNames=None, lstVal=None, l
         quer = QSqlQuery()
         if not bOK:
             msg.error("Erro ao criar o script")
-            WhatLog.errorHappen(info='Error ao Criar o Script de Insercao.\nTable Name: '+str(tblName)+
-                                                                        '\nDatabese Fields:'+str(lstNames)+
-                                                                        '\nDatabese Values:'+str(lstVal)+
-                                                                        '\nDatabese Quoteded:'+str(lstQuot))
             return bOK, None
         else:
             istStr= istStr.replace(" 'NULL',", " NULL,")
             b_Exec= quer.prepare(istStr)
-            WhatLog.whatHappen(info=istStr.encode(encoding='utf_8'))
             if b_Exec:
                 b_Exec = quer.exec_(istStr)
                 if b_Exec:
@@ -89,11 +80,9 @@ def insertVal( tblName=None, val=None, ordBy=None, lstNames=None, lstVal=None, l
                 else:
                     verbTxt=quer.lastError().text()
                     msg.error("Error: Nao sera possivel Inserir os Dados.",verbTxt=str(verbTxt))
-                    WhatLog.errorHappen(info=verbTxt)
             else:
                 verbTxt=quer.lastError().text()
                 msg.error("Error: Nao sera possivel Inserir os Dados.",verbTxt=str(verbTxt))
-                WhatLog.errorHappen(info=verbTxt)
         return b_Exec, msgOut
     
  
@@ -117,7 +106,6 @@ def updateVal(tblName=None , lstNames=None , lstVals=None , lstQuot=None ,  cond
         if bOk:
             updstr= updstr.replace(" 'NULL' ,", " NULL,")
             b_Exec = quer.exec_(updstr)
-            WhatLog.whatHappen(info=updstr.encode(encoding='utf_8'))
             if b_Exec:
                 txt= str(cond)+" e igual a "+str(conVal)
                 msgOut= "Dados atualizados onde "+str(txt)
@@ -125,14 +113,9 @@ def updateVal(tblName=None , lstNames=None , lstVals=None , lstQuot=None ,  cond
             else:
                 verbTxt=quer.lastError().text()
                 msg.error(txt="Error ao atulizar os dados Na tabela "+str(tblName), verbTxt=verbTxt)
-                WhatLog.errorHappen(info=verbTxt)
                 bOK = False
         else:
             msg.error()
-            WhatLog.errorHappen(info='Error ao Criar o Script de Atualizacao.\nTable Name: '+str(tblName)+
-                                                                        '\nDatabese Fields:'+str(lstNames)+
-                                                                        '\nDatabese Values:'+str(lstVals)+
-                                                                        '\nDatabese Quoteded:'+str(lstQuot))
             bOK = False       
         return bOK, msgOut
 
@@ -151,7 +134,6 @@ def deleteVal(tblName=None , cond=None , conVal=None , condQuot=None ):
         quer = QSqlQuery()
         if bOk:
             b_Exec = quer.exec_(deldstr)
-            WhatLog.whatHappen(info=deldstr.encode(encoding='utf_8'))
             if b_Exec:
                 txt= "Dados removidos onde "+str(cond)+" e igual a "+str(conVal)
                 msg.Sucessos(txt)
@@ -159,14 +141,9 @@ def deleteVal(tblName=None , cond=None , conVal=None , condQuot=None ):
             else:
                 verbTxt=quer.lastError().text()
                 msg.error(txt="Error ao Remover os dados Na tabela "+str(tblName), verbTxt=verbTxt)
-                WhatLog.errorHappen(info=verbTxt)
                 return False
         else:
             msg.error()
-            WhatLog.errorHappen(info='Error ao Criar o Script para apagar.\nTable Name: '+str(tblName)+
-                                                                        '\nDatabese Fields:'+str(cond)+
-                                                                        '\nDatabese Values:'+str(conVal)+
-                                                                        '\nDatabese Quoteded:'+str(condQuot))
             return False  
 
 
@@ -174,7 +151,6 @@ def anySelectScript(scpt=None,fldNum=None):
     
     quer = QSqlQuery()
     b_Exec = quer.exec_(scpt)
-    WhatLog.whatHappen(info=scpt.encode(encoding='utf_8'))
     valOut = []
     if b_Exec:
         quer.first()
@@ -188,7 +164,6 @@ def anySelectScript(scpt=None,fldNum=None):
     else:
         verbTxt=quer.lastError().text()
         msg.error(txt="Error ", verbTxt=verbTxt)
-        WhatLog.errorHappen(info=verbTxt)
     return b_Exec, valOut
     
     
@@ -196,7 +171,6 @@ def multLineSelect(scpt):
     try: 
         quer = QSqlQuery()
         b_Exec = quer.exec_(scpt)
-        WhatLog.whatHappen(info=scpt.encode(encoding='utf_8'))
         if b_Exec:
             quer.last()
             fldRow = int(quer.at()) + 1
@@ -214,12 +188,10 @@ def multLineSelect(scpt):
         else:
             verbTxt=quer.lastError().text()
             msg.error(txt="Error ", verbTxt=verbTxt)
-            WhatLog.errorHappen(info=verbTxt)
             valOut=None
             return b_Exec, valOut
     except Exception:
         msg.error(txt="Error ", verbTxt="Nao foi Possivel aceder a Base de Dados")
-        WhatLog.errorHappen(info="ERROR: Algo aconteceu na Funcao multLineSelect")
         valOut=None
         return b_Exec, valOut
     

@@ -5,17 +5,23 @@ Created on 17/08/2017
 '''
 from ui_geometric_POT import Ui_Form
 import Sub_GenericReferencias
+import rscForm
 
 class dlg_geometric(Sub_GenericReferencias.sub_GenericReferencias_Geometric,Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level=None):
         super(dlg_geometric, self).__init__(parent=None)
         self.setupUi(self)
         
         self.tblName = tblName
         self.mIdx = indexModel
+        
         self.setDict()
         self.configCombox()
         self.setIDFromCB()
+        
+        self.level = level
+        self.justView()
+        
         self.bOK = (False, None)
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
@@ -23,6 +29,9 @@ class dlg_geometric(Sub_GenericReferencias.sub_GenericReferencias_Geometric,Ui_F
         self.toEdit()
         
         
+    
+    
+    
     def setDict(self):
         self.dictFields= {
                         'lstName': ["id", "id_tiplocal", "id_parent" , "nome",  "descricao", "comentario", "activo"],
@@ -44,3 +53,5 @@ class dlg_geometric(Sub_GenericReferencias.sub_GenericReferencias_Geometric,Ui_F
                                          
                 'widget':[self.CBTipLocal, self.CBPais, self.CBProvincia, self.CBDistrito, self.CBPostoAdmin, self.CBCentroPesca]
                        }
+        
+        

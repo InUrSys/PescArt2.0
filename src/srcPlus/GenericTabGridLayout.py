@@ -8,8 +8,16 @@ import QT_msg
 import QT_tblViewUtility
 import QT_widgetsCustom
 from toViewKeepTrack import KeepTrack
+from toView_keep_track_ArtesPesca import toView_Keep_track_ArtesPesca 
 class GenericTabs(QDialog):
     
+    def setHDWGH(self):#how do we got here
+        wdg = toView_Keep_track_ArtesPesca(dbcon=self.dbcon, Id=self.mIdex)
+        lastID, LastRow = wdg.getData()
+        self.DictGridLay['ItemClicked'][0] = lastID, LastRow
+        self.GLArtes.addWidget(wdg)
+        
+        
 
     def setMVCtoAll(self):
         '''

@@ -7,7 +7,7 @@ from ui_codificadores_POT import Ui_Form
 from GenericReferenciasQDialog import GenericReferencias
 
 class dlg_simpel(GenericReferencias, Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level = None):
         super(dlg_simpel, self).__init__(parent)
         self.setupUi(self)   
         
@@ -16,6 +16,10 @@ class dlg_simpel(GenericReferencias, Ui_Form):
         self.setLst()
         self.lockCodigo_Grupo()
         self.bOK = (False, None)
+        
+        self.level = level
+        self.justView()
+        
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
         

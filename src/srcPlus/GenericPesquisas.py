@@ -8,9 +8,8 @@ from PyQt5.Qt import QDialog, QModelIndex, QStandardItemModel, QStandardItem,\
 import mixedModel
 import QT_tblViewUtility
 import rscForm
+import frmPesquisa_Sort
 class GenericPesquisas(QDialog):
-    
-    
     
     def configCombox(self):
         '''
@@ -169,8 +168,12 @@ class GenericPesquisas(QDialog):
             startQuery += quer
         #
         #
-        endQuery = " order by tbl1.data_amostragem ;"#ORder by Data 
-        startQuery += endQuery
+        try:
+            if self.endQuery != " ":
+                startQuery += "order by "
+                startQuery += self.endQuery 
+        except AttributeError:
+            startQuery += " order by data_amostragem "
         lstName = self.dictSaidas['newNames']
         model = mixedModel.setQueryModel(query= startQuery, lstNewNames= lstName)
         toHide = self.dictSaidas['toHide']
@@ -189,5 +192,10 @@ class GenericPesquisas(QDialog):
             lstOut.append(val)
         self.lstVal= lstOut
         self.bOK = True
-        
+    
+    
+    def toOpenSort(self):
+        dlg = frmPesquisa_Sort.frmSortting()
+        dlg.exec_()
+        self.endQuery = dlg.fQuery
         

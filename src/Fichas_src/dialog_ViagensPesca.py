@@ -17,6 +17,7 @@ class dialog_ViagemPesca(GenericAmostrasQDialog.CustomForm_Amostras, Ui_frmViage
         self.tblName = TblName
         self.lstToEdit = lstValToEdit
         self.dictRules = dictRules
+        self.frmName = 'frmViagemPesca'
         self.setDict()
         self.bOK= (False, None)
         self.lastChecked = None

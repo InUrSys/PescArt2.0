@@ -10,7 +10,7 @@ import FuncSQL
 from GenericReferenciasQDialog import GenericReferencias
 
 class dlg_registadores(GenericReferencias, Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level =None):
         super(dlg_registadores, self).__init__(parent)
         self.setupUi(self)   
         
@@ -21,6 +21,10 @@ class dlg_registadores(GenericReferencias, Ui_Form):
         self.toEdit()
         self._toEdit()
         self.bOK = (False, None)
+        
+        self.level = level
+        self.justView()
+        
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
             

@@ -22,9 +22,9 @@ class GenericCalculoEstim(QDialog):
     def setCB(self):
         lstquer = ["select null as id, '-ANO-' as nome UNION all (select distinct data_ano, cast (data_ano as text) as d_ano from view_ano_mes order by data_ano)",
                    "select null as id, '-ANO-' as nome UNION all (select distinct data_ano, cast (data_ano as text) as d_ano from view_ano_mes order by data_ano)",
-                   "select null as id, '-Agrupamento-' as nome UNION all (select mes_num, nome from ref_agrupamentos order by mes_num)",
+                   "select null as id, '-Agrupamento-' as nome UNION all (select mes_num, nome from prc_agrupamentos order by mes_num)",
                    "select null as id, '-Tipo de Dia-' as nome union all select id, nome from ref_table where id_grupo = 'TPD'",
-                   "select null as id, '-Periodo do Dia-' as nome union all SELECT id, nome FROM public.ref_periodo_dia;"]
+                   "select null as id, '-Periodo do Dia-' as nome union all SELECT id, nome FROM public.prc_periodo_dia;"]
             
         lstWdg = [self.CBAno_inicio, self.CBAno_Fim, self.CBAgrupamento, self.CBTipDia, self.CBPeriodoDia] 
         for idx, val in enumerate (lstWdg):
@@ -137,7 +137,7 @@ class GenericCalculoEstim(QDialog):
     
     def getPeriodo(self):
         wdg = self.CBPeriodoDia
-        quer = "SELECT id, nome, inicio, fim FROM public.ref_periodo_dia where nome like '{nome}';"
+        quer = "SELECT id, nome, inicio, fim FROM public.prc_periodo_dia where nome like '{nome}';"
         lstOut =None
         if wdg.currentIndex() != 0:
             nome = wdg.currentText()

@@ -8,7 +8,6 @@ from ui_compAmostra  import Ui_frmDistComprimento
 from PyQt5.Qt import QSpinBox, QDialog, QDoubleSpinBox, QSqlQuery
 import FuncSQL
 import rscForm
-import WhatLog
 import QT_msg
 class dialog_CompAmost(QDialog, Ui_frmDistComprimento):
     def __init__(self, parent=None, TblName=None, dbcon=None, Id=None, lstValToEdit=None, dictRules = None):  
@@ -109,7 +108,6 @@ class dialog_CompAmost(QDialog, Ui_frmDistComprimento):
                 quer =  '''INSERT INTO public.t_comp_amost
                             (id, id_amost_comp_sexo, class_comp, n_indiv)
                             VALUES ({id}, {id_amost_comp_sexo}, '{class_comp}', {n_indiv});'''.format(**dictVal)
-                WhatLog.whatHappen(info=quer)
                 toSave = QSqlQuery()
                 bOK = toSave.exec_(quer)
                 if bOK == False:
@@ -125,7 +123,6 @@ class dialog_CompAmost(QDialog, Ui_frmDistComprimento):
         msgOut= "Operacao Realizada Com sucesso"
         for dictIN in lstdictIN:
             quer = "SELECT id_amost_comp_sexo, class_comp, n_indiv from public.t_comp_amost where class_comp= '{class_comp}' and id_amost_comp_sexo= {id_amost_comp_sexo} ".format(**dictIN)
-            WhatLog.whatHappen(info=quer)
             _, lstOut = FuncSQL.anySelectScript(scpt= quer)
             if lstOut[0] == dictIN['id_amost_comp_sexo'] and lstOut[1] == dictIN['class_comp'] and lstOut[2] == dictIN['n_indiv']:
                 bOK =True
@@ -133,13 +130,11 @@ class dialog_CompAmost(QDialog, Ui_frmDistComprimento):
                 quer= ''' UPDATE public.t_comp_amost SET n_indiv= {n_indiv}
                          WHERE class_comp= '{class_comp}' and id_amost_comp_sexo= {id_amost_comp_sexo};'''.format(**dictIN)
                 bOK = toSave.exec_(quer)
-                WhatLog.whatHappen(info=quer)
                 
             else:
                 bOK =False
                 vTxt= toSave.lastError().text()
                 QT_msg.error(txt='Error Nao sera possivel realizar a opercao', verbTxt=vTxt)
-                WhatLog.errorHappen(info=vTxt)
                 msgOut=None
                 break
         return bOK, msgOut

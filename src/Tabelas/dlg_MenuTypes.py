@@ -20,11 +20,12 @@ class dlg_MenuTypes(QDialog, Ui_Form):
     6 - Tabelas outras
     7  -Tipo de Local
     '''
-    def __init__(self, dbcon=None):
+    def __init__(self, dbcon=None, user_info=None):
         super(dlg_MenuTypes, self).__init__()
         self.setupUi(self)
         
         self.dbcon = dbcon
+        self.user_info = user_info
         self.setDict()
         
         self.PBCodificadores.clicked.connect(self.getSenderID)
@@ -50,7 +51,7 @@ class dlg_MenuTypes(QDialog, Ui_Form):
         whois = self.sender().objectName()
         try:
             idx = self.dictWidgt[whois]
-            toOpen = frmMainRef(dbCon=self.dbcon, mainIndex=idx)
+            toOpen = frmMainRef(dbCon=self.dbcon, mainIndex=idx, user_info=self.user_info)
             toOpen.exec_()
         except Exception:
             QT_msg.error(txt="Error ", verbTxt=str(Exception))

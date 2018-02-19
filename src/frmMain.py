@@ -4,18 +4,20 @@ Created on 14/07/2017
 '''
 #Imports
 
-from PyQt5.Qt import QApplication, QDesktopWidget
+from PyQt5.Qt import QDesktopWidget, QMenuBar
 from PyQt5.QtWidgets import QMainWindow
 from ui_main import Ui_MainWindow
 from dlg_MenuTypes import dlg_MenuTypes
 import frmFichaRecolhaParte1
 import Rules
-import WhatLog
 from frmCalculoEstim import frmCalculoEstim
 from datetime import datetime
 import frm_config_user
 import rscForm
-from dialog_PesquisarSaidas import PesquisarSaidas
+import RelatoriosGerais
+from Relatorio_SaidasPorProvinica import Relatorio_SaidasPorProvincia
+import File_config
+from frm_EstroturaHierarquia import frmEstroturaHierarquia
 
 
 class frmMain(QMainWindow,Ui_MainWindow):
@@ -32,18 +34,18 @@ class frmMain(QMainWindow,Ui_MainWindow):
         self.makeMainFull()
         self.showCentered()
         
+        self.menubar.setNativeMenuBar(True)
         '''    
                             Connections    
         Aqui chamamos a connecao para a base de Dados Pescart 
         '''
         self.dbPescArt = dbCon
-        self.user_info = user_info
+        self.user_info = user_info#id, Nome, level
         self.configTblNames()        
         self.configRules()
         self.configUser()
         tempo = datetime.today()
         rscForm.configprivilege(dictIn=self.dictToHide)
-        WhatLog.logIN(user=self.user_info, tempox=tempo)
         
         """
                             triggeres        
@@ -54,44 +56,68 @@ class frmMain(QMainWindow,Ui_MainWindow):
         self.actionFicha_de_Recolha_de_Dados.triggered.connect(self._openFichaRecolha)
         self.actionCalculo_das_Estimativas.triggered.connect(self._openEstimativas)
         self.actionRegistar.triggered.connect(self._openConfigUser)
-        self.actionAdicionar_Composicao_Especifica.triggered.connect(self._openPesquisar)
+        self.actionRelatorios_Gerais.triggered.connect(self._openGenerateReports)
+        self.actionTotal_das_Saidas_Registadas_Por_Provincia.triggered.connect(self._openRelatoriosEspecificos)
+        self.actionHierarquiaDoPais.triggered.connect(self._openHierarquiaPais)
 
+    
+    '''
+    Metodos Para abrir Forms/Janelas 
+    '''
+    def _openHierarquiaPais(self):
+        '''
+        Hierarquia do Pais.
+        '''
+        self.Estrotura = frmEstroturaHierarquia(dbcon = self.dbPescArt)
+        self.Estrotura.exec_()
+    
     
     def _openMenuRef(self):
         '''
-        Metodo para abrir o Menu das referencias.
+        Menu das referencias.
         '''
-        self.menuBar = dlg_MenuTypes(dbcon=self.dbPescArt)
+        self.menuBar = dlg_MenuTypes(dbcon=self.dbPescArt,user_info=self.user_info)
         self.menuBar.exec_()
 
 
     def _openFichaRecolha(self):
         '''
-        Metodo para abrir o A Ficha de recolha de Dados.
+        Ficha de recolha de Dados.
         '''
         self.Ficha = frmFichaRecolhaParte1.FichaRecolha(dbcon = self.dbPescArt, dictTblName=self.dictTblNames, dictRules=self.dictRules)
         self.Ficha.exec_()
     
+    
     def _openEstimativas(self):
+        '''
+        Processamento de Dados
+        '''
         tblName = "NUMB"
         self.CalEstim = frmCalculoEstim(DbCon=self.dbPescArt)
         self.CalEstim.exec_()
+        
      
     def _openConfigUser(self):
         tblName = "log_user"
         self.User = frm_config_user.user_config(dbcon=self.dbPescArt, tblName=tblName, user_info=self.user_info)
         self.User.exec_()
         
-    #Note This Is just For Delevopment porpess
-    def _openPesquisar(self):
-        self.Pesq = PesquisarSaidas(dbcon=self.dbPescArt)
-        self.Pesq.exec_()
+        
+    def _openGenerateReports(self):
+        self.Rep = RelatoriosGerais.GenerateReports(dbcon=self.dbPescArt)
+        self.Rep.exec_()
+        
+    
+    def _openRelatoriosEspecificos(self):
+        self.RepEsp = Relatorio_SaidasPorProvincia(dbcon=self.dbPescArt)
+        self.RepEsp.exec_()
+    
     
     def makeMainFull(self):
-        size = QApplication.desktop()
-        h = size.frameSize().height()
-        w = size.frameSize().width()
-        self.setGeometry(0,0,h,w)
+        width = int(File_config.configDict['screenWidth'])
+        hight = int(File_config.configDict['screenHight'])
+        self.setMaximumHeight(hight)
+        self.setMaximumWidth(width)
         
         
     def showCentered(self):
@@ -112,9 +138,9 @@ class frmMain(QMainWindow,Ui_MainWindow):
             
     
     def configUser(self):
-        self.dictToHide= {
+        self.dictToHide=   {
                             'menus':[self.actionTabelas_de_Referencia],
-                            'level':[50]
+                            'level':[0]
                             }
         
         
@@ -154,4 +180,5 @@ class frmMain(QMainWindow,Ui_MainWindow):
                             "Rules":"ui_rules",
                             "TypeRules":"ui_typerules",
                             }
+        
         

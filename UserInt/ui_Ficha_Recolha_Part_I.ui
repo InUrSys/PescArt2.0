@@ -1356,6 +1356,45 @@ background-color: DodgerBlue;
    <item row="2" column="0" colspan="3">
     <widget class="QGroupBox" name="GBButtons">
      <layout class="QGridLayout" name="gridLayout_12">
+      <item row="0" column="2">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>81</width>
+          <height>17</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="7">
+       <widget class="QPushButton" name="PBAmostras">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Amostras</string>
+        </property>
+        <property name="icon">
+         <iconset resource="icons.qrc">
+          <normaloff>:/newPrefix/Icons/clipboard.png</normaloff>:/newPrefix/Icons/clipboard.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>19</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="PBGuardar">
         <property name="sizePolicy">
@@ -1405,14 +1444,14 @@ background-color: DodgerBlue;
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer_3">
+      <item row="0" column="8">
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>81</width>
+          <width>248</width>
           <height>17</height>
          </size>
         </property>
@@ -1473,59 +1512,7 @@ background-color: DodgerBlue;
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>48</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="6">
-       <widget class="QPushButton" name="PBAmostras">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Amostras</string>
-        </property>
-        <property name="icon">
-         <iconset resource="icons.qrc">
-          <normaloff>:/newPrefix/Icons/clipboard.png</normaloff>:/newPrefix/Icons/clipboard.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>19</width>
-          <height>15</height>
-         </size>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>248</width>
-          <height>17</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="8">
+      <item row="0" column="9">
        <widget class="QPushButton" name="PBCancelar">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -1545,6 +1532,41 @@ background-color: DodgerBlue;
           <width>19</width>
           <height>15</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>48</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="6">
+       <widget class="QPushButton" name="PBFoto">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>+ Foto</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>19</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>

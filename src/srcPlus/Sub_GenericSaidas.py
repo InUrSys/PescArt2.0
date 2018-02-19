@@ -87,9 +87,10 @@ class Generic_Saidas(CustomFrm):
     def setValToAllWdg(self):
         if self.lstTemVal is not None:
             wdg = self.dictFields['fldWidget']
+            self.setLocalizacao(nome= self.lstTemVal[2])
             for idx, val in enumerate(self.lstTemVal):
                 rscForm.setTxtToWidget(widget= wdg[idx], val=val)
-            self.setLocalizacao(nome= self.lstTemVal[2])
+            
             
     
     def save(self):

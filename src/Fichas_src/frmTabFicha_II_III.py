@@ -23,7 +23,7 @@ class frmTabFicha(QDialog, Ui_frmFichaRecolhaAmostras):
         self.PBSair.clicked.connect(self.close)
         self.PBVoltar.clicked.connect(self.close)
 
-    def configTabViagem(self):#Pode Mudar
+    def configTabViagem(self):#Configuracao do primeiro tab
         wdgViagem= FichaRecolhaParte2(dbcon=None, Id= self.Id, dictRules=self.dictRules, mIdxe= self.mIdx)
         self.GLtabViagem.addWidget(wdgViagem)
     

@@ -8,7 +8,7 @@ from GenericReferenciasQDialog import GenericReferencias
 from PyQt5.Qt import QLineEdit
 
 class dlg_especies(GenericReferencias,Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level=None):
         super(dlg_especies, self).__init__(parent=None)
         self.setupUi(self)
         
@@ -18,6 +18,10 @@ class dlg_especies(GenericReferencias,Ui_Form):
         self.configCombox()
         self.toEdit()
         self.bOK = (False, None)
+        
+        self.level = level
+        self.justView()
+        
         self.PBGuardar.clicked.connect(self.generateNome)
         self.PBCancelar.clicked.connect(self.close)
         

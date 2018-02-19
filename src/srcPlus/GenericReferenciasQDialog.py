@@ -11,6 +11,20 @@ import re
 import FuncSQL
 import QT_msg
 class GenericReferencias(QDialog):
+    
+    
+    def justView(self):
+        '''
+        Metodo para configurar o form para so vizualizar
+        '''
+        lstWdg = self.dictFields['lstWidget']
+        if self.level is not None:
+            if int(self.level) <= 10:
+                rscForm.setReadOnlyAll(True, lstWdg)
+                rscForm.setReadOnly(True, self.PBGuardar)
+                
+                          
+                          
     '''
     Class Generica das tabelas de referencia, onde iremos criar 
     os metodos para levar, inicializar etc.. os dados nos widgets
@@ -145,7 +159,8 @@ class GenericReferencias(QDialog):
         
             
 class GenericReferencias_ (GenericReferencias):   
-                          
+
+
     def splitInID(self):
         txt = self.LECodigo.text()
         tstRegex = re.compile(r'\w{,3}')

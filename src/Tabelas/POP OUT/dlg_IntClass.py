@@ -10,7 +10,7 @@ from PyQt5.Qt import  QModelIndex
 import FuncSQL
 
 class dlg_intClass(GenericReferencias,Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None,  indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None,  indexModel=None, idx=None, level=None):
         super(dlg_intClass, self).__init__(parent=None)
         self.setupUi(self)
         
@@ -19,10 +19,18 @@ class dlg_intClass(GenericReferencias,Ui_Form):
         self.setDict()
         self.configCombox()
         self._toEdit()
+        
+        self.level = level
+        self.justView()
+        
         self.bOK = (False, None)
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
-
+        self.idx = idx
+        self.justView()
+        
+        
+    
         
     def _toEdit(self):
         if isinstance(self.mIdx, QModelIndex):

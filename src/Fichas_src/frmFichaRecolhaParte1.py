@@ -6,7 +6,10 @@ from ui_Ficha_Recolha_Part_I import Ui_frmSaidas
 from dialog_Factores import dialog_Factores
 from dialog_ArtesAmostradas import dialog_ArtesAmostradas
 from Sub_GenericSaidas import Generic_Saidas
-from PyQt5.Qt import QCheckBox
+import FuncSQL
+import QT_msg
+import frm_imageToPDF
+import rscForm
 
 class FichaRecolha(Generic_Saidas, Ui_frmSaidas):
     def __init__(self, dbcon=None, dictTblName=None, dictRules=None):
@@ -20,9 +23,11 @@ class FichaRecolha(Generic_Saidas, Ui_frmSaidas):
         self.lstTemVal = None #Valores temporarios pois insersao ou pesquisa para editar
         self.shareModelIdex = None #Model index compartilhado entre Saidas e Amostras
         self.int_methods()
-    
-    
+        
+        
     def int_methods(self):
+        self.frmName = 'frmFichaRecolhaParte1'
+        self.dictKeepTrack=None
         self.setDicts()
         self.setMainDict()
         self.setDictAuto()
@@ -38,6 +43,7 @@ class FichaRecolha(Generic_Saidas, Ui_frmSaidas):
         self.CBProvincia.currentIndexChanged.connect(self.configRegistador)  
         self.setClick()
         self.PBCancelar.clicked.connect(self.close)
+        self.PBFoto.clicked.connect(self.addFichaScan)
     
         
     def setClick(self):
@@ -52,9 +58,27 @@ class FichaRecolha(Generic_Saidas, Ui_frmSaidas):
         for val in lstWdgUpdadte:
             val.clicked.connect(self.prep_toEdit_POP)
             
-        
-        
-        
+            
+    def addFichaScan(self):
+        #Verificar se existem os Dados na Base de dados
+        idx = self.LEN_Sequencial.text()
+        data = rscForm.getText(self.DEDataAmost)
+        centroPesca = rscForm.getText(self.CBCentroPesca)
+        registadores = rscForm.getText(self.CBRegistadores)
+        quer = "select case when (select True where {id} in (select id from t_saidas)) then True else False end".format(id=idx)
+        bOK, resultOut = FuncSQL.anySelectScript(quer)
+        if bOK:
+            if resultOut[0] == True:
+                frmFoto = frm_imageToPDF.frmImageToPdf(codigo=idx, 
+                                                       data=data, 
+                                                       centroPesca=centroPesca, 
+                                                       registadores=registadores)
+                frmFoto.exec_()
+                
+            else:
+                QT_msg.aviso(txt="O Registo a inda nao foi inserido na Base de Dados.")
+            
+
             
     def setDicts(self):
         self.dictFields= {

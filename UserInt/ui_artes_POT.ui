@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>363</width>
-    <height>407</height>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,10 +113,10 @@
    <item row="1" column="3" colspan="2">
     <widget class="QLineEdit" name="LECodigo">
      <property name="maxLength">
-      <number>5</number>
+      <number>3</number>
      </property>
      <property name="placeholderText">
-      <string>Ex:AAAAA</string>
+      <string>Ex:ABC</string>
      </property>
     </widget>
    </item>

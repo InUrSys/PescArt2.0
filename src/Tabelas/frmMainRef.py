@@ -31,17 +31,18 @@ from dlg_Artes import dlg_artes
 from dlg_Especies import dlg_especies
 from dlg_Geometric import dlg_geometric
 from dlg_Tabelas import dlg_tabela
-from dlg_Motor import dlg_motor
 from dlg_TipLocal import dlg_tiplocal
 import QT_widgetsCustom
 from dlg_UniPescaTipo import dlg_UniPescaTipo
 from dlg_IntClass import dlg_intClass
 from dlg_pesqueiros import dlg_pesqueiros
 from dlg_registadores import dlg_registadores
+import CustomItemDelegates
+import rscForm
 
 
 class frmMainRef(QDialog, Ui_MainForm):
-    def __init__(self, parent = None, dbCon=None, mainIndex=None):#0
+    def __init__(self, parent = None, dbCon=None, mainIndex=None, user_info=None):#0
         super(frmMainRef, self).__init__(parent)
         self.setupUi(self)
         
@@ -57,16 +58,22 @@ class frmMainRef(QDialog, Ui_MainForm):
         self.dbcon = dbCon
         self.idx = mainIndex
         self.mIndex=None
+        self.user_info = user_info
+        self.setSecurity()
         self.setDict()
         self.setMainDict()
         self._toHide()
         self._setFormToSelected()
         self.costumForm()
+        self.toNormal()
+        
+        
         #Eventos
         self.CBGrupo.currentTextChanged.connect(self.onTextChange)
         self.PBProcurar.clicked.connect(self.search)
         self.PBAtualizar.clicked.connect(self.refresh)
         self.PBAdicionar.clicked.connect(self.operacao)
+        self.PBVizualizar.clicked.connect(self.operacao)
         self.PBEditar.clicked.connect(self.operacao)
         self.TVMain.clicked.connect(self.afterClick)
         self.PBCancelar.clicked.connect(self.close)
@@ -180,6 +187,12 @@ class frmMainRef(QDialog, Ui_MainForm):
         lstRelTblName =self.dictMain['fldDlgDict'][self.idx]['fldRelTblMain']
         lstNewNames =self.dictMain['fldDlgDict'][self.idx]['headerTitle']
         bOK, model = wrapModel.setViewModel(tblName = tblName, filtro = filtro, lstVal2Rel = lstVal2Rel, lstRelTblName = lstRelTblName, lstNewNames = lstNewNames)
+        
+
+        self.deleg = CustomItemDelegates.CustomItemDelegate()
+        lstToHide = self.dictMain['fldDlgDict'][self.idx]['lstToHide']
+        QT_tblViewUtility.setModelInView(tblView= self.TVMain, ViewModel= model, toHide= lstToHide)
+        self.TVMain.setItemDelegate(self.deleg)
         return (bOK, model)
     
     
@@ -205,7 +218,7 @@ class frmMainRef(QDialog, Ui_MainForm):
             
     def operacao(self):#9
         bOk=False
-        if self.sender() is self.PBEditar:
+        if self.sender() is self.PBEditar or self.sender() is self.PBVizualizar:
             indexModel = self.mIndex
             if indexModel is None:
                 QT_msg.aviso(txt='Aviso 9.1: Selecione um elemento na tabela para poder Editar')
@@ -223,12 +236,13 @@ class frmMainRef(QDialog, Ui_MainForm):
     def openDlgPOP(self, indexModel=None):#10
         msgOut=None
         toHide = self.dictMain['toHideGrupo'][self.idx]
+        _,_,level = self.user_info
         try:
             if toHide:
-                run = self.dictMain["dlgToPop"][self.idx](dbcon = self.dbcon, tblName=self.dictMain["tblName"][self.idx], indexModel=indexModel)
+                run = self.dictMain["dlgToPop"][self.idx](dbcon = self.dbcon, tblName=self.dictMain["tblName"][self.idx], indexModel=indexModel, level= level)
             else:
                 curText = self.CBGrupo.currentText()
-                run = self.dictMain["dlgToPop"][self.idx](dbcon = self.dbcon, tblName=self.dictMain["tblName"][self.idx], indexModel=indexModel, id=curText)
+                run = self.dictMain["dlgToPop"][self.idx](dbcon = self.dbcon, tblName=self.dictMain["tblName"][self.idx], indexModel=indexModel, idx=curText, level= level)
             run.exec_()
             if run.close():
                 bOK, msgOut = run.bOK
@@ -269,15 +283,27 @@ class frmMainRef(QDialog, Ui_MainForm):
    
    
     def toNormal(self):
+        _,userName,_ = self.user_info
         objName = self.LBwhois.objectName()
         css= "#"+str(objName)+"""{
                 color:black;
                 }"""
         self.LBwhois.setStyleSheet(css)
-        self.LBwhois.setText("User Name")
+        self.LBwhois.setText(str(userName).capitalize())
     
     
-    def setDict(self):#15
+    def setSecurity(self):
+        '''
+        Metodo para abilitar e desabilitar os campos de acordo com o nivel do usuario.
+        '''
+        self.setDictSecurity()
+        _,_,level = self.user_info
+        lstWdg = self.dictLocked[str(level)]
+        if lstWdg is not None:
+            rscForm.setReadOnlyAll(True, lstWdg)
+    
+    
+    def setDict(self):
         '''
         Metodo para confirgurar o dicionario dictXXX 
         que vao axiliar na criacao de modelos e dialogs
@@ -300,95 +326,104 @@ class frmMainRef(QDialog, Ui_MainForm):
         '''
         self.dictPesquerio =    {
                             'fldName': ["id", "id_centro", "nome", "comentario", "activo"],
-                            'headerTitle': ['Cod.', 'Provincia', 'Nome', 'Comentario', 'Act.'],
+                            'headerTitle': ['Cod.', 'Provincia', 'Nome', 'Comentario', 'Activo'],
+                            'lstToHide':[True, False, False, True, False],
                             'fldToQuote': [False, True, True, True, True],
                             
                             'val2Rel': [None, ['id', 'Nome'], None, None, None],
                             'fldRelTblMain': [None, 'ref_geometric', None, None, None],
-                            'sizeCol':[50, 190, 190, 190, 190],
+                            'sizeCol':[50, 250, 300, 100, 100],
                             'sizeForm':[937, 617],
                             }
         
         self.dictRegistador = { 
                             'fldName': ["id", "id_centro", "nome", "comentario", "activo"],
-                            'headerTitle': ['Cod.', 'Provincia', 'Nome', 'Comentario', 'Act.'],
+                            'headerTitle': ['Cod.', 'Provincia', 'Nome', 'Comentario', 'Activo'],
+                            'lstToHide':[True, False, False, True, False],
                             'fldToQuote': [False, True, True, True, True],
                             
                             'val2Rel': [None, ['id', 'Nome'], None, None, None],
                             'fldRelTblMain': [None, 'ref_geometric', None, None, None],
-                            'sizeCol':[50, 190, 190, 190, 190],
+                            'sizeCol':[50, 250, 300, 190, 190],
                             'sizeForm':[937, 617],
                             }       
         
         self.dictArtes=     {
                             'fldName': ["id", "nome", "id_uniesforco", "id_unitrabalho", "id_tippesca", "descricao", "comentario", "activo"],
-                            'headerTitle':["Cod.", "Nome", "Uni. Esforco", "Uni. Trabalho", "Tipo de Pesca", "Descricao", "Comentarios", "Act."],
+                            'headerTitle':["Cod.", "Nome", "Unidade de Esforco", "Unidade de  Trabalho", "Tipo de Pesca", "Descricao", "Comentarios", "Activo"],
+                            'lstToHide':[True, False, False, False, True, True, True, False],
                             'fldToQuote': [True, True, True, True, True, True, True,  False],
                             
                             'val2Rel': [None, None, ['id', 'nome'], ['id', 'nome'], ['id', 'nome'], ['id','nome'], None, None, None],
                             'fldRelTblMain': [None, None, 'ref_table', 'ref_table', 'ref_table', None, None, None, None, None],
-                            'sizeCol':[80, 140, 140, 140, 140, 100, 100, 50],
+                            'sizeCol':[80, 200, 200, 200, 200, 100, 100, 50],
                             'sizeForm':[1017, 617],
                             }
         
         self.dictDiaSemana= {
                             'fldName': ["id", "id_tipdia",  "nome",  "descricao", "comentario", "activo"],
-                            'headerTitle': ["Cod.", "Tipo de Dia", "Nome", "Descricao", "Comentarios", "Act."],
+                            'headerTitle': ["Cod.", "Tipo de Dia", "Nome", "Descricao", "Comentarios", "Activo"],
+                            'lstToHide':[True, False, False, True, True, False],
                             'fldToQuote': [True, True, True, True, True,  False],
                             
                             'val2Rel': [None, ['id','nome'],None, None, None,None],
                             'fldRelTblMain': [None, 'ref_table', None, None, None, None],
-                            'sizeCol':[100, 180, 200, 120, 120, 50],
+                            'sizeCol':[100, 200, 300, 120, 120, 50],
                             'sizeForm':[937, 617],
                             }
         
         self.dictEspecies=  {
                             'fldName': ["id", "familia", "genus", "species", "id_habitat", "minlength", "maxlength", "intlength", "intmaxlen", "ana_comesp", "comentario", "activo", 'nome'],
-                            'headerTitle': ["Cod.", "Familia", "Genus", "Especie", "Habitate", "comp.mínimo", "comp.máximo", "Int.comum", "Int.máximo", "A.Composicao", "Comentarios", "Act.", "Nome"],
+                            'headerTitle': ["Cod.", "Familia", "Genus", "Especie", "Habitate", "comp.mínimo", "comp.máximo", "Int.comum", "Int.máximo", "A.Composicao", "Comentarios", "Activo", "Nome"],
+                            'lstToHide':[True, False, False, False, True, True, True, True, True, True, True,False, False],
                             'fldToQuote': [True, True, True, True, True, False, False, False, False, False, True, False, False],
                             
                             'val2Rel': [None, None, None, None, ['id', 'nome'], None, None, None, None, None, None, None, None],
                             'fldRelTblMain': [None, None, None, None, 'ref_table', None, None, None, None, None, None, None, None],
-                            'sizeCol':[80, 130, 130, 140, 150, 40, 40, 40, 40, 50, 100, 50, 150],
+                            'sizeCol':[80, 180, 180, 180, 150, 40, 40, 40, 40, 50, 100, 50, 150],
                             'sizeForm':[1098, 617],
                             }
         
         self.dictGeometric= {
                             'fldName': ["id", "id_tiplocal", "id_parent" , "nome",  "descricao", "comentario", "activo"],
-                            'headerTitle': ["Cod.", "Tipo de Local", "Parente", "Nome", "Descricao", "Comentarios", "Act."],
+                            'headerTitle': ["Cod.", "Tipo de Local", "Parente", "Nome", "Descricao", "Comentarios", "Activo"],
+                            'lstToHide':[True, False, False, False, True, True, False],
                             'fldToQuote': [True, True, True, True, True, True,  False],
                             
                             'val2Rel': [None,['id', 'nome'],  ['id','nome'], None, None, None, None],
                             'fldRelTblMain': [None, 'ref_tiplocal','ref_geometric', None, None, None, None],
-                            'sizeCol':[80, 130, 150, 150, 125, 125, 50],
+                            'sizeCol':[80, 200, 200, 200, 125, 125, 50],
                             'sizeForm':[937, 617],
                             }
         
         self.dictSimpel=    {
                             'fldName': ["id", "nome","descricao", "comentario", "activo"],
-                            'headerTitle': ['Cod.', 'Nome', 'Descricao', 'Comentarios', 'Act.'],
+                            'headerTitle': ['Cod.', 'Nome', 'Descricao', 'Comentarios', 'Activo'],
+                            'lstToHide':[True, False, True, True, False],
                             'fldToQuote': [True, True, True, True, False],
                             
                             'val2Rel': [None, None, None, None, None],
                             'fldRelTblMain': [None, None, None, None, None],
-                            'sizeCol':[50, 250, 200, 200, 50],
+                            'sizeCol':[50, 450, 200, 200, 50],
                             'sizeForm':[937, 617],
                             }
         
         self.dictTipLocal= {
                             'fldName': ["id", "id_nivel",  "nome",  "descricao", "comentario", "activo"],
-                            'headerTitle': ["Cod.", "Nivel", "Nome", "Descricao", "Comentarios", "Act."],
+                            'headerTitle': ["Cod.", "Nivel", "Nome", "Descricao", "Comentarios", "Activo"],
+                            'lstToHide':[True, False, False, True, True, False],
                             'fldToQuote': [True, True, True, True, True,  False],
                             
                             'val2Rel': [None, ['id','nome'],None, None, None,None],
                             'fldRelTblMain': [None, 'ref_nivel', None, None, None, None],
-                            'sizeCol':[100, 180, 200, 120, 120, 50],
+                            'sizeCol':[100, 250, 250, 120, 120, 50],
                             'sizeForm':[937, 617],
                             }
 
         self.dictTables=    {
                             'fldName': ["id", "id_grupo", "nome", "descricao", "comentario", "activo"],
-                            'headerTitle': ['Cod.', "Grupo", 'Nome', 'Descricao', 'Comentarios', 'Act.'],
+                            'headerTitle': ['Cod.', "Grupo", 'Nome', 'Descricao', 'Comentarios', 'Activo'],
+                            'lstToHide':[True, False, False, True, True, False],
                             'fldToQuote': [True, True, True, True, True, False],
                             
                             'val2Rel': [None, ['id', 'nome'], None, None, None, None], 
@@ -398,29 +433,31 @@ class frmMainRef(QDialog, Ui_MainForm):
                             'condName': 'activo',
                             'condVal': True,
                             'condToQuote': False,
-                            'sizeCol':[80, 190, 190, 140, 140, 50],
+                            'sizeCol':[80, 200, 400, 140, 140, 50],
                             'sizeForm':[937, 617],
                             }  
         
         self.dictIntClass= {
                             'fldName': ["id", "id_especie",  "intervalo", "comentario", "activo"],
-                            'headerTitle': [ "Cod.", "Especie", "Intevalo", "Comentarios", "Act."],
+                            'headerTitle': [ "Cod.", "Especie", "Intevalo", "Comentarios", "Activo"],
+                            'lstToHide':[True, False, False, True, False],
                             'fldToQuote': [False, True, True, True,False ],
                             
                             'val2Rel': [None, ['id','nome'],None, None, None],
                             'fldRelTblMain': [None, 'ref_especies', None, None, None, None],
-                            'sizeCol':[50, 200, 180, 200, 100],
+                            'sizeCol':[50, 400, 180, 200, 100],
                             'sizeForm':[937, 617],
                             }   
         
         self.dictUniPescaTipo= {
                             'fldName': ["id",  "nome", "id_arte", "id_tipbarco", "activo", "descricao"],
-                            'headerTitle': ["Cod.","Nome", "Arte", "Tipo de barco", "Act.", "Descricao"],
-                            'fldToQuote': [True, True, True, True, False],
+                            'headerTitle': ["Cod.","Nome", "Arte", "Tipo de barco", "Activo", "Descricao"],
+                            'lstToHide':[True, False, False, False, False, True],
+                            'fldToQuote': [True, True, True, True, False, True],
                             
                             'val2Rel': [None, None,['id','nome'], ['id','nome'],None, None],
                             'fldRelTblMain': [None, None, 'ref_artes', 'ref_table',None, None],
-                            'sizeCol':[100, 250, 150, 150, 100, 50],
+                            'sizeCol':[100, 250, 170, 170, 100, 50],
                             'sizeForm':[937, 617],
                             }
                             
@@ -451,5 +488,16 @@ class frmMainRef(QDialog, Ui_MainForm):
                                      "ref_intervalo_class.comentarios = ref_intervalo_class.comentarios"]
                         } 
 
-    #=======================================================================
+
     
+    def setDictSecurity(self):
+        '''
+        Definimos os widgets que estarao bloqueados para cada user level
+        
+        '''
+        self.dictLocked= {
+                        '0':[self.PBAdicionar, self.PBEditar],
+                        '1':[self.PBAdicionar, self.PBEditar],
+                        '10':None,
+                        '99':None
+                        }

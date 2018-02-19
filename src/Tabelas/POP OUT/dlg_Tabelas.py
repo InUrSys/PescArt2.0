@@ -8,12 +8,12 @@ from PyQt5.Qt import QModelIndex
 from  GenericReferenciasQDialog import GenericReferencias_
 
 class dlg_tabela(GenericReferencias_, Ui_Form):
-    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, id=None):
+    def __init__(self, parent = None, dbcon=None, tblName=None, indexModel=None, idx=None, level=None):
         super(dlg_tabela, self).__init__(parent=None)
         self.setupUi(self)
         
         self.tblName = tblName
-        self.curText = id        
+        self.curText = idx        
         self.mIdx = indexModel
         self.setDict()
         self.configCombox()
@@ -21,6 +21,10 @@ class dlg_tabela(GenericReferencias_, Ui_Form):
         self.toEdit()
         self._toEdit()
         self.bOK = (False, None)
+        
+        self.level = level
+        self.justView()
+        
         self.PBGuardar.clicked.connect(self.pre_operacao)
         self.PBCancelar.clicked.connect(self.close)
     

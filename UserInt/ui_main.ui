@@ -70,7 +70,7 @@ border-color: black
     </property>
     <widget class="QMenu" name="menuExportar_Informacao">
      <property name="title">
-      <string>Exportar Informacao</string>
+      <string>Exportar Informação</string>
      </property>
      <addaction name="actionSaidas"/>
      <addaction name="actionArtes"/>
@@ -78,18 +78,13 @@ border-color: black
      <addaction name="actionLances"/>
      <addaction name="actionCategorias"/>
      <addaction name="actionEspecies_2"/>
-     <addaction name="actionComprimentos"/>
-     <addaction name="actionComercializacao"/>
     </widget>
     <addaction name="actionFicha_de_Recolha_de_Dados"/>
-    <addaction name="actionAdicionar_Composicao_Especifica"/>
     <addaction name="separator"/>
     <addaction name="actionTabelas_de_Referencia"/>
-    <addaction name="actionTabelas_Relacionais"/>
     <addaction name="separator"/>
     <addaction name="menuExportar_Informacao"/>
     <addaction name="actionImportar_Informacao"/>
-    <addaction name="actionReparar_Compactar_Base_de_Dados"/>
     <addaction name="actionBackup_da_Base_de_Dados"/>
     <addaction name="separator"/>
     <addaction name="actionSair"/>
@@ -106,37 +101,25 @@ border-color: black
     <property name="title">
      <string>Relatorios</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuGraficos">
-    <property name="title">
-     <string>Graficos</string>
-    </property>
+    <widget class="QMenu" name="menuRelatorios_Especificos">
+     <property name="title">
+      <string>Relatorios Especificos</string>
+     </property>
+     <addaction name="actionTotal_das_Saidas_Registadas_Por_Provincia"/>
+    </widget>
+    <addaction name="actionRelatorios_Gerais"/>
+    <addaction name="menuRelatorios_Especificos"/>
    </widget>
    <widget class="QMenu" name="menuConsultas">
     <property name="title">
      <string>Consultas</string>
     </property>
-    <addaction name="actionSaidas_Por_Centro_de_Pesca"/>
-   </widget>
-   <widget class="QMenu" name="menuConfiguracao">
-    <property name="title">
-     <string>Configuracao</string>
-    </property>
-    <widget class="QMenu" name="menuRegras">
-     <property name="title">
-      <string>Regras</string>
-     </property>
-     <addaction name="actionRegistar"/>
-     <addaction name="actionEditar"/>
-    </widget>
-    <addaction name="menuRegras"/>
+    <addaction name="actionHierarquiaDoPais"/>
    </widget>
    <addaction name="menuDados"/>
    <addaction name="menuProcessar"/>
    <addaction name="menuRelatorios"/>
-   <addaction name="menuGraficos"/>
    <addaction name="menuConsultas"/>
-   <addaction name="menuConfiguracao"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAdicionar_Composicao_Especifica">
@@ -146,7 +129,7 @@ border-color: black
   </action>
   <action name="actionImportar_Informacao">
    <property name="text">
-    <string>Importar Informacao</string>
+    <string>Importar Informação</string>
    </property>
   </action>
   <action name="actionReparar_Compactar_Base_de_Dados">
@@ -364,9 +347,9 @@ border-color: black
     <string>Calculo das Estimativas</string>
    </property>
   </action>
-  <action name="actionSaidas_Por_Centro_de_Pesca">
+  <action name="actionHierarquiaDoPais">
    <property name="text">
-    <string>Saidas Por Centro de Pesca</string>
+    <string>Hierarquia do Pais</string>
    </property>
   </action>
   <action name="actiontTipoBarco">
@@ -537,6 +520,16 @@ border-color: black
   <action name="actionEditar">
    <property name="text">
     <string>Editar </string>
+   </property>
+  </action>
+  <action name="actionRelatorios_Gerais">
+   <property name="text">
+    <string>Relatorios Gerais</string>
+   </property>
+  </action>
+  <action name="actionTotal_das_Saidas_Registadas_Por_Provincia">
+   <property name="text">
+    <string>Total das Saidas Registadas Por Provincia</string>
    </property>
   </action>
  </widget>

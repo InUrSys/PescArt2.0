@@ -5,17 +5,17 @@ Created on 01/09/2017
 '''
 from ui_Ficha_Recolha_Part_II import Ui_Form
 
-from dialog_ArtesAmostradas import dialog_ArtesAmostradas
 from dialog_LancePesca import dialog_LancePesca
 from dialog_CatComercial import dialog_CatComercial
 from dialog_AmostCategoria import dialog_AmostCategoria
 from dialog_ViagensPesca import dialog_ViagemPesca
 
-from toView_ArtesAmostradas import toView_ArtesAmostradas
 from toView_ViagensPesca import toView_ViagemPesca
 from toView_LancePesca import toView_LancePesca
 from toView_CatComercial import toView_CatComercial
 from toView_AmostCategoria import toView_AmostCategoria
+
+from toView_keep_track_ArtesPesca import toView_Keep_track_ArtesPesca 
 
 from GenericTabGridLayout import GenericTabs
 
@@ -26,33 +26,17 @@ class FichaRecolhaParte2(GenericTabs, Ui_Form ):
         
         self.configDict()
         self.dbcon= dbcon
-        self.DictGridLay['ItemClicked'][0] = (str(Id),None)
+        self.lastClicked = (str(Id),None)
         self.dictRules = dictRules
         self.mIdex = mIdxe
-        
         self.lstLastClicked = []
-        self.setMVCtoAll()
-        self.setRowToSameAsClickedOnSaidas()
-            
-    def setRowToSameAsClickedOnSaidas(self):
-        '''
-        Metodo para deixara a mesma linha selecionada como a que foi
-        selecionada nas saidas/Artes.
-        '''
-        self.DictGridLay['WidgetRuning'][0].setSameClicked()
         
+        self.setHDWGH()
+        
+        self.setMVCtoAll()
     
-    def configDict(self): 
-        self.dictDlgArtesAmostradas={
-                        "names": ["id", "id_saida", "id_centro", "id_tip_uni_pesca", "n_activas", "n_nao_activas", "n_amostradas"],
-                        
-                        "toQuote":[False, False, True, True, False, False, False],
-                        
-                        "relTblName":[None, None, "ref_geometric", "ref_unidpescatipo", None, None],
-                        
-                        "val2Rel":[None, None, ["id", "nome"] ,["id", "nome"]  ,None ,None]
-                            }
-                        
+    
+    def configDict(self):                         
                         
         self.dictDlgViagemPesca={
                         "names": ["id", "id_activ_tip_unidade", "id_unipesca", "id_pesqueiro",
@@ -115,67 +99,57 @@ class FichaRecolhaParte2(GenericTabs, Ui_Form ):
          
          
         self.DictSenderIdx= {
-                        'TVArtePesca':0 ,
-                        'PBAdicionarArtes':0 ,
-                        'PBEditarArtes':0,
-                        'PBAmostras':0,
+
+                        'TVViagens':0 ,
+                        'PBAdicionar':0,
+                        'PBEditar':0,
                          
-                        'PBNext':1 ,
-                        'PBBack':1 ,
-                        'PBAdicionarViagens':1,
-                        'PBEditarViagens':1,
+                        'TVLances':1,
+                        'PBAdicionarLances':1,
+                        'PBEditarLAnces':1,
                          
-                        'TVLances':2 ,
-                        'PBAdicionarLances':2,
-                        'PBEditarLAnces':2,
+                        'TVCatComercial':2,
+                        'PBAdicionarCatComerical':2,
+                        'PBEditarCatComercial':2,
                          
-                        'TVCatComercial':3 ,
-                        'PBAdicionarCatComerical':3,
-                        'PBEditarCatComercial':3,
-                         
-                        'TVAmostCategoria':4 ,
-                        'PBAdicionarAmostCat':4,
-                        'PBEditarAmostCat':4,
+                        'TVAmostCategoria':3,
+                        'PBAdicionarAmostCat':3,
+                        'PBEditarAmostCat':3,
                         }
      
      
         self.DictIdxDepend= {
-                        'TVArtePesca':1,
-                        'PBAmostras':1,
+                        'PBDown':0,
+                        'PBUp':0,
+
+                        'TVViagens':1,
                          
-                        'PBNext':2 ,
-                        'PBAdicionarViagens':2,
-                        'PBEditarViagens':2,
-                        'PBBack':2 ,
-                         
-                        'TVLances':3 ,
+                        'TVLances':2,
                         
-                        'TVCatComercial':4 ,
+                        'TVCatComercial':3,
                         
                         'TVAmostCategoria':None
                             }
         
         
-        
-        
         self.DictGridLay = {
-                            'MainDict': [self.dictDlgArtesAmostradas, self.dictDlgViagemPesca, self.dictDlgLancesPesca,
+                            'MainDict': [self.dictDlgViagemPesca, self.dictDlgLancesPesca,
                                           self.dictDlgCatComercial, self.dictDlgAmostCategoria], 
      
-                            'TblName': ["t_activ_tip_unidade", "t_viagem_pesca", "t_lance_pesca", "t_desem_cat_comercial", "t_amost_desem_cat_comercial"],
+                            'TblName': ["t_viagem_pesca", "t_lance_pesca", "t_desem_cat_comercial", "t_amost_desem_cat_comercial"],
                              
-                            'GridLayout': [self.GLArtes, self.GLViagens, self.GLLances, self.GLCategorias, self.GLAmostCat ] ,
+                            'GridLayout': [self.GLViagens, self.GLLances, self.GLCategorias, self.GLAmostCat ] ,
                              
-                            'WidgetToView': [toView_ArtesAmostradas, toView_ViagemPesca, toView_LancePesca, toView_CatComercial, toView_AmostCategoria],
+                            'WidgetToView': [toView_ViagemPesca, toView_LancePesca, toView_CatComercial, toView_AmostCategoria],
                              
-                            'dialogsToOpen': [dialog_ArtesAmostradas, dialog_ViagemPesca, dialog_LancePesca, dialog_CatComercial, dialog_AmostCategoria],
+                            'dialogsToOpen': [dialog_ViagemPesca, dialog_LancePesca, dialog_CatComercial, dialog_AmostCategoria],
              
-                            'WidgetRuning': [None, None, None, None, None],
+                            'WidgetRuning': [None, None, None, None],
                              
-                            'ItemClicked': [None, None, None, None, None],
+                            'ItemClicked': [None, None, None, None],
                              
-                            'lstLastClicked': [None, None, None, None, None],
+                            'lstLastClicked': [ None, None, None, None],
                              
-                            'filtros':["id_saida ={id}", "id_activ_tip_unidade ={id}", "id_viagem_pesca ={id}", "id_lance_pesca ={id}", "id_desem_cat_comercial ={id}"]       
+                            'filtros':["id_activ_tip_unidade ={id}", "id_viagem_pesca ={id}", "id_lance_pesca ={id}", "id_desem_cat_comercial ={id}"]       
                                 
-                                }
+                            }
